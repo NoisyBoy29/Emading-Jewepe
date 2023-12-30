@@ -4,7 +4,7 @@
 // var_dump($pass);
 // die;
 
-include('admin/config_db.php');
+include('admin/config_query.php');
 $db = new database();
 
 //init session
