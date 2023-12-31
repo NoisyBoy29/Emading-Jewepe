@@ -28,18 +28,29 @@ class database
     // Get data table artikel
     public function show_data()
     {
-        $hasil = array();  // Initialize $hasil here
+        $hasil = array();
 
-        $data = mysqli_query($this->koneksi, "SELECT id_artikel, sampul, judul, isi, status_artikel, kategori, tba.created_at, tba.updated_at, nama, tba.id_users FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users");
+        $data = mysqli_query($this->koneksi, "SELECT id_artikel, sampul, judul, isi, status_artikel, kategori, tba.id_users FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users");
 
         if ($data) {
             if (mysqli_num_rows($data) > 0) {
                 while ($row = mysqli_fetch_array($data)) {
                     $hasil[] = $row;
                 }
+            } else {
+                $hasil = "0";
             }
         }
 
         return $hasil;
+    }
+
+
+    public function add_data($sampul, $judul, $isi, $status_artikel, $kategori, $id_users)
+    {
+        $datetime = date("Y-m-d H:i:s");
+        $insert = mysqli_query($this->koneksi, "INSERT into tb_artikel (sampul, judul, isi, status_artikel, id_users, created_at, kategori) values ('$sampul', '$judul', '$isi', '$status_artikel', '$id_users', '$datetime', '$kategori')");
+
+        return $insert;
     }
 }

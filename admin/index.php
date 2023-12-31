@@ -22,7 +22,7 @@ $data_artikel = $db->show_data();
                     </div>
                     <div class="col-lg-6">
                         <div class="float-end">
-                            <a href="tabmah_data.php" class="btn btn-primary">
+                            <a href="tambah_data.php" class="btn btn-primary">
                                 <i class="bx bx-plus"></i>
                                 Tambah Data
                             </a>
@@ -36,11 +36,12 @@ $data_artikel = $db->show_data();
                         <thead>
                             <tr class="text-nowrap">
                                 <th class="text-center bg-primary text-white">No</th>
+                                <th class="text-center bg-primary text-white">Gambar Header</th>
                                 <th class="text-center bg-primary text-white">Judul Artikel</th>
                                 <th class="text-center bg-primary text-white">Isi Artikel</th>
                                 <th class="text-center bg-primary text-white">Kategori Artikel</th>
                                 <th class="text-center bg-primary text-white">Status Artikel</th>
-                                <th class="text-center bg-primary text-white">Gambar Header</th>
+
                                 <th class="text-center bg-primary text-white">Aksi</th>
                             </tr>
                         </thead>
@@ -54,15 +55,18 @@ $data_artikel = $db->show_data();
                             ?>
                                     <tr>
                                         <th><?= $no++; ?></th>
+                                        <td>
+                                            <a href="../files/<?= $row['sampul']; ?>" target="_blank">
+                                                <img src="../files/<?= $row['sampul']; ?>" class="img-thumbnail rounded" style="max-width: 80px";>
+                                            </a>
+                                        </td>
                                         <td><?= $row['judul']; ?></td>
                                         <td><?= $row['isi']; ?></td>
                                         <td><?= $row['kategori']; ?></td>
                                         <td><?= $row['status_artikel']; ?></td>
-                                        <td><?= $row['sampul']; ?></td>
-                                        <td><?= $row['updated_at']; ?></td>
                                         <td>
-                                            <a href="edit.php" class="btn btn-sm btn-warning">Ubah</a>
-                                            <a href="delete.php" class="btn btn-sm btn-danger">Hapus</a>
+                                            <a href="edit.php?id=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-warning">Ubah</a>
+                                            <a href="delete.php?id=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-danger">Hapus</a>
                                         </td>
                                     </tr>
                             <?php

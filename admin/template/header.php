@@ -57,6 +57,8 @@ if(!isset($_SESSION['username']) and (isset($_SESSION['id_users']))){
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/admin/assets/js/config.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
   </head>
 
   <body>

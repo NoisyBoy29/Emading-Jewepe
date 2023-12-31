@@ -53,15 +53,14 @@ if (isset($_SESSION['username']) || isset($_SESSION['id_users'])) {
 
             //Check username availibility
             if ($rows != 0) {
-                $userData = mysqli_fetch_assoc($query);
-                $getPassword = $userData['password'];
+                $getData = $query->fetch_assoc();
 
                 // var_dump($getPassword);
                 // die;
 
-                if (password_verify($password, $getPassword)) {
+                if (password_verify($password, $getData['password'])) {
                     $_SESSION['username'] = $username;
-                    $_SESSION['id_users'] = $userData['id_users'];
+                    $_SESSION['id_users'] = $getData['id_users'];
 
                     header('location: admin/index.php');
                 } else {
