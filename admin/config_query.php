@@ -53,4 +53,28 @@ class database
 
         return $insert;
     }
+
+    // Get article by ID
+    public function get_artikel_by_id($id_artikel)
+    {
+        $data = mysqli_query($this->koneksi, "SELECT * FROM tb_artikel WHERE id_artikel = $id_artikel");
+
+        return $data ? mysqli_fetch_assoc($data) : null;
+    }
+
+    // Update article
+    public function update_data($id_artikel, $sampul, $judul, $isi, $status_artikel, $kategori)
+    {
+        $datetime = date("Y-m-d H:i:s");
+        $update = mysqli_query($this->koneksi, "UPDATE tb_artikel SET 
+            sampul = '$sampul',
+            judul = '$judul',
+            isi = '$isi',
+            status_artikel = '$status_artikel',
+            kategori = '$kategori',
+            updated_at = '$datetime'
+            WHERE id_artikel = $id_artikel");
+
+        return $update;
+    }
 }

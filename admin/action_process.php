@@ -53,7 +53,144 @@ if ($action == "add") {
         echo "<script>alert('Gambar tidak boleh kosong');document.location.href = 'tambah_data.php';</script>";
     }
 } elseif ($action == "update") {
-    //update data
+    // Update data
+
+    $id_artikel = $_GET['id_artikel'];
+
+    // Check if article ID is provided
+    if (isset($id_artikel)) {
+        $artikel = $db->get_artikel_by_id($id_artikel);
+
+        // Check if the article exists
+        if ($artikel) {
+            // Proceed with update
+
+            // Check sampul 
+            if ($_FILES["sampul"]["name"] != '') {
+                $tmp = explode('.', $_FILES["sampul"]["name"]);
+                $ext = end($tmp);
+                $filename = $tmp[0];
+                $allowed_ext = array("jpg", "png", "jpeg");
+
+                if (in_array($ext, $allowed_ext)) {
+                    if ($_FILES["sampul"]["size"] <= 5120000) {
+                        $name = $filename . '_' . rand() . '.' . $ext;
+                        $path = "../files/" . $name;
+                        $uploaded = move_uploaded_file($_FILES["sampul"]["tmp_name"], $path);
+
+                        if ($uploaded) {
+                            // Update data in the database
+                            $updateData = $db->update_data($id_artikel, $name, $_POST["judul"], $_POST["isi"], $_POST["status_artikel"], $_POST["kategori"]);
+
+                            if ($updateData) {
+                                echo "<script>alert('Data Berhasil Diupdate');</script>";
+                                header('Location: index.php');
+                                exit();
+                            } else {
+                                echo "<script>alert('Data Gagal Diupdate');</script>";
+                                header("Location: update_data.php?id_artikel=$id_artikel");
+                                exit();
+                            }
+                        } else {
+                            echo "<script>alert('Gagal Upload file');document.location.href = 'update_data.php?id_artikel=$id_artikel';</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Ukuran Gambar lebih dari 5mb');document.location.href = 'update_data.php?id_artikel=$id_artikel';</script>";
+                    }
+                } else {
+                    echo "<script>alert('File salah ekstensi');document.location.href = 'update_data.php?id_artikel=$id_artikel';</script>";
+                }
+            } else {
+                // If no new image is uploaded, update data without changing the image
+                $updateData = $db->update_data($id_artikel, $artikel['sampul'], $_POST["judul"], $_POST["isi"], $_POST["status_artikel"], $_POST["kategori"]);
+
+                if ($updateData) {
+                    echo "<script>alert('Data Berhasil Diupdate');</script>";
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    echo "<script>alert('Data Gagal Diupdate');</script>";
+                    header("Location: update_data.php?id_artikel=$id_artikel");
+                    exit();
+                }
+            }
+        } else {
+            // Article not found
+            echo "<script>alert('Artikel tidak ditemukan');document.location.href = 'index.php';</script>";
+        }
+    } else {
+        // ID not provided
+        echo "<script>alert('ID Artikel tidak ditemukan');document.location.href = 'index.php';</script>";
+    }
+    // Update data
+
+    $id_artikel = $_GET['id_artikel'];
+
+    // Check if article ID is provided
+    if (isset($id_artikel)) {
+        $artikel = $db->get_artikel_by_id($id_artikel);
+
+        // Check if the article exists
+        if ($artikel) {
+            // Proceed with update
+
+            // Check sampul 
+            if ($_FILES["sampul"]["name"] != '') {
+                $tmp = explode('.', $_FILES["sampul"]["name"]);
+                $ext = end($tmp);
+                $filename = $tmp[0];
+                $allowed_ext = array("jpg", "png", "jpeg");
+
+                if (in_array($ext, $allowed_ext)) {
+                    if ($_FILES["sampul"]["size"] <= 5120000) {
+                        $name = $filename . '_' . rand() . '.' . $ext;
+                        $path = "../files/" . $name;
+                        $uploaded = move_uploaded_file($_FILES["sampul"]["tmp_name"], $path);
+
+                        if ($uploaded) {
+                            // Update data in the database
+                            $updateData = $db->update_data($id_artikel, $name, $_POST["judul"], $_POST["isi"], $_POST["status_artikel"], $_POST["kategori"]);
+
+                            if ($updateData) {
+                                echo "<script>alert('Data Berhasil Diupdate');</script>";
+                                header('Location: index.php');
+                                exit();
+                            } else {
+                                echo "<script>alert('Data Gagal Diupdate');</script>";
+                                header("Location: update_data.php?id_artikel=$id_artikel");
+                                exit();
+                            }
+                        } else {
+                            echo "<script>alert('Gagal Upload file');document.location.href = 'update_data.php?id_artikel=$id_artikel';</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Ukuran Gambar lebih dari 5mb');document.location.href = 'update_data.php?id_artikel=$id_artikel';</script>";
+                    }
+                } else {
+                    echo "<script>alert('File salah ekstensi');document.location.href = 'update_data.php?id_artikel=$id_artikel';</script>";
+                }
+            } else {
+                // If no new image is uploaded, update data without changing the image
+                $updateData = $db->update_data($id_artikel, $artikel['sampul'], $_POST["judul"], $_POST["isi"], $_POST["status_artikel"], $_POST["kategori"]);
+
+                if ($updateData) {
+                    echo "<script>alert('Data Berhasil Diupdate');</script>";
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    echo "<script>alert('Data Gagal Diupdate');</script>";
+                    header("Location: update_data.php?id_artikel=$id_artikel");
+                    exit();
+                }
+            }
+        } else {
+            // Article not found
+            echo "<script>alert('Artikel tidak ditemukan');document.location.href = 'index.php';</script>";
+        }
+    } else {
+        // ID not provided
+        echo "<script>alert('ID Artikel tidak ditemukan');document.location.href = 'index.php';</script>";
+    }
 } elseif ($action == "delete") {
     //delete data
 } else {

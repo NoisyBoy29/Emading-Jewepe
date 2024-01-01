@@ -138,7 +138,7 @@ if(!isset($_SESSION['username']) and (isset($_SESSION['id_users']))){
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Manajemen Artikel</div>
               </a>
@@ -165,7 +165,7 @@ if(!isset($_SESSION['username']) and (isset($_SESSION['id_users']))){
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  Halaman Admin Mading Jewepe <a href="..index.php" target="_blank" class="ms-3 btn btn-sm btn-icon btn-outline-primary">
+                  Halaman Admin Mading Jewepe <a href="index.php" target="_blank" class="ms-3 btn btn-sm btn-icon btn-outline-primary">
                     <span class="tf-icons bx bx-link-external"></span>
                   </a>
                 </div>

@@ -41,7 +41,6 @@ $data_artikel = $db->show_data();
                                 <th class="text-center bg-primary text-white">Isi Artikel</th>
                                 <th class="text-center bg-primary text-white">Kategori Artikel</th>
                                 <th class="text-center bg-primary text-white">Status Artikel</th>
-
                                 <th class="text-center bg-primary text-white">Aksi</th>
                             </tr>
                         </thead>
@@ -57,7 +56,7 @@ $data_artikel = $db->show_data();
                                         <th><?= $no++; ?></th>
                                         <td>
                                             <a href="../files/<?= $row['sampul']; ?>" target="_blank">
-                                                <img src="../files/<?= $row['sampul']; ?>" class="img-thumbnail rounded" style="max-width: 80px";>
+                                                <img src="../files/<?= $row['sampul']; ?>" class="img-thumbnail rounded" style="max-width: 80px" ;>
                                             </a>
                                         </td>
                                         <td><?= $row['judul']; ?></td>
@@ -65,8 +64,8 @@ $data_artikel = $db->show_data();
                                         <td><?= $row['kategori']; ?></td>
                                         <td><?= $row['status_artikel']; ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-warning">Ubah</a>
-                                            <a href="delete.php?id=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-danger">Hapus</a>
+                                            <a href="update_data.php?id_artikel=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-warning">Ubah</a>
+                                            <a href="delete.php?id_artikel=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-danger">Hapus</a>
                                         </td>
                                     </tr>
                             <?php
