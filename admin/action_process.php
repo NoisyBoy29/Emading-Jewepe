@@ -192,7 +192,26 @@ if ($action == "add") {
         echo "<script>alert('ID Artikel tidak ditemukan');document.location.href = 'index.php';</script>";
     }
 } elseif ($action == "delete") {
-    //delete data
+    $id_artikel = $_POST['id_artikel'];
+
+    // Check if article ID is provided
+    if (isset($id_artikel)) {
+        // Perform deletion logic here
+        $deleteData = $db->delete_data($id_artikel);
+
+        if ($deleteData) {
+            echo "<script>alert('Data Berhasil Dihapus');</script>";
+            header('Location: index.php');
+            exit();
+        } else {
+            echo "<script>alert('Data Gagal Dihapus');</script>";
+            header('Location: index.php');
+            exit();
+        }
+    } else {
+        // ID not provided
+        echo "<script>alert('ID Artikel tidak ditemukan');document.location.href = 'index.php';</script>";
+    }
 } else {
     echo "<script>alert('No Access operations');document.location.href = 'index.php';</script>";
 }

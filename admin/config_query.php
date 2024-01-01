@@ -77,4 +77,12 @@ class database
 
         return $update;
     }
+
+    // Delete article
+    public function delete_data($id_artikel)
+    {
+        $delete = mysqli_query($this->koneksi, "DELETE FROM tb_artikel WHERE id_artikel = $id_artikel");
+
+        return $delete;
+    }
 }

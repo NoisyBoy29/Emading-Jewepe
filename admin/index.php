@@ -65,9 +65,27 @@ $data_artikel = $db->show_data();
                                         <td><?= $row['status_artikel']; ?></td>
                                         <td>
                                             <a href="update_data.php?id_artikel=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-warning">Ubah</a>
-                                            <a href="delete.php?id_artikel=<?= $row['id_artikel']; ?>" class="btn btn-sm btn-danger">Hapus</a>
+                                            <button class="btn btn-sm btn-danger" onclick="deleteArticle(<?= $row['id_artikel']; ?>)">Hapus</button>
                                         </td>
                                     </tr>
+                                    <!-- script delete data -->
+                                    <script>
+                                        function deleteArticle(articleId) {
+                                            if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
+                                                // If user confirms the deletion, perform AJAX request to delete the article
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open('POST', 'action_process.php?action=delete', true);
+                                                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                                xhr.onreadystatechange = function() {
+                                                    if (xhr.readyState == 4 && xhr.status == 200) {
+                                                        // Reload the page after successful deletion
+                                                        window.location.reload();
+                                                    }
+                                                };
+                                                xhr.send('id_artikel=' + articleId);
+                                            }
+                                        }
+                                    </script>
                             <?php
                                 }
                             }
