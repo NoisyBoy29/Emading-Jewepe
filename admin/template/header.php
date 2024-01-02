@@ -165,7 +165,7 @@ if(!isset($_SESSION['username']) and (isset($_SESSION['id_users']))){
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  Halaman Admin Mading Jewepe <a href="index.php" target="_blank" class="ms-3 btn btn-sm btn-icon btn-outline-primary">
+                  Halaman Admin Mading Jewepe <a href="../index.php" target="_blank" class="ms-3 btn btn-sm btn-icon btn-outline-primary">
                     <span class="tf-icons bx bx-link-external"></span>
                   </a>
                 </div>
