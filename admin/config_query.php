@@ -57,7 +57,7 @@ class database
     // Get article by ID
     public function get_artikel_by_id($id_artikel)
     {
-        $data = mysqli_query($this->koneksi, "SELECT * FROM tb_artikel WHERE id_artikel = $id_artikel");
+        $data = mysqli_query($this->koneksi, "SELECT tba.*, tbu.* FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users WHERE tba.id_artikel = $id_artikel");
 
         return $data ? mysqli_fetch_assoc($data) : null;
     }
@@ -84,5 +84,25 @@ class database
         $delete = mysqli_query($this->koneksi, "DELETE FROM tb_artikel WHERE id_artikel = $id_artikel");
 
         return $delete;
+    }
+
+    // Get data table artikel status publish
+    public function show_publish_data()
+    {
+        $artikel = array();
+
+        $data = mysqli_query($this->koneksi, "SELECT tba.id_artikel, tba.sampul, tba.judul, tba.isi, tba.status_artikel, tba.kategori, tba.created_at, tba.id_users, tbu.name FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users WHERE tba.status_artikel = 'publish'");
+
+        if ($data) {
+            if (mysqli_num_rows($data) > 0) {
+                while ($row = mysqli_fetch_array($data)) {
+                    $artikel[] = $row;
+                }
+            } else {
+                $artikel = "0";
+            }
+        }
+
+        return $artikel;
     }
 }

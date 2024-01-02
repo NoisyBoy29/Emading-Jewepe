@@ -1,62 +1,64 @@
 <!-- Header -->
 <?php
 include('template/header.php');
+include('admin/config_query.php');
+
+// Check if the article ID is set in the URL
+if (isset($_GET['id_artikel'])) {
+  // Sanitize the input to prevent SQL injection
+  $articleId = intval($_GET['id_artikel']);
+
+  // Instantiate the database class
+  $db = new database();
+
+  // Retrieve the article information based on the provided ID
+  $article = $db->get_artikel_by_id($articleId);
+
+  if ($article) {
+    // Display article information
 ?>
 
-  <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('assets/landing/images/hero_5.jpg');">
-    <div class="container">
-      <div class="row same-height justify-content-center">
-        <div class="col-md-6">
-          <div class="post-entry text-center">
-            <h1 class="mb-4">Don’t assume your user data in the cloud is safe</h1>
-            <div class="post-meta align-items-center text-center">
-              <figure class="author-figure mb-0 me-3 d-inline-block"><img src="assets/landing/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-              <span class="d-inline-block mt-1">By Carl Atkinson</span>
-              <span>&nbsp;-&nbsp; February 10, 2019</span>
+    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('assets/landing/images/hero_5.jpg');">
+      <div class="container">
+        <div class="row same-height justify-content-center">
+          <div class="col-md-6">
+            <div class="post-entry text-center">
+              <h1 class="mb-4"><?php echo $article['judul']; ?></h1>
+              <div class="post-meta align-items-center text-center">
+                <!-- You can use actual user data from your database -->
+                <span class="d-inline-block mt-1">Dibuat Oleh <a><?php echo $article['name'];?></a></span>
+                <br>
+                <span>&nbsp;Pada :&nbsp; <?php echo $article['created_at']; ?></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <section class="section">
-    <div class="container">
-
-      <div class="row blog-entries element-animate">
-
-        <div class="col-md-12 col-lg-12 main-content">
-
-          <div class="post-content-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nam quas inventore, ut iure iste modi eos adipisci ad ea itaque labore earum autem nobis et numquam, minima eius. Nam eius, non unde ut aut sunt eveniet rerum repellendus porro.</p>
-            <p>Sint ab voluptates itaque, ipsum porro qui obcaecati cumque quas sit vel. Voluptatum provident id quis quo. Eveniet maiores perferendis officia veniam est laborum, expedita fuga doloribus natus repellendus dolorem ab similique sint eius cupiditate necessitatibus, magni nesciunt ex eos.</p>
-            <p>Quis eius aspernatur, eaque culpa cumque reiciendis, nobis at earum assumenda similique ut? Aperiam vel aut, ex exercitationem eos consequuntur eaque culpa totam, deserunt, aspernatur quae eveniet hic provident ullam tempora error repudiandae sapiente illum rerum itaque voluptatem. Commodi, sequi.</p>
-            <div class="row my-4">
-              <div class="col-md-12 mb-4">
-                <img src="assets/landing/images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded">
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="assets/landing/images/img_2_horizontal.jpg" alt="Image placeholder" class="img-fluid rounded">
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="assets/landing/images/img_3_horizontal.jpg" alt="Image placeholder" class="img-fluid rounded">
-              </div>
+    <section class="section">
+      <div class="container">
+        <div class="row blog-entries element-animate">
+          <div class="col-md-12 col-lg-12 main-content">
+            <div class="post-content-body">
+              <?php echo $article['isi']; ?>
             </div>
-            <p>Quibusdam autem, quas molestias recusandae aperiam molestiae modi qui ipsam vel. Placeat tenetur veritatis tempore quos impedit dicta, error autem, quae sint inventore ipsa quidem. Quo voluptate quisquam reiciendis, minus, animi minima eum officia doloremque repellat eos, odio doloribus cum.</p>
-            <p>Temporibus quo dolore veritatis doloribus delectus dolores perspiciatis recusandae ducimus, nisi quod, incidunt ut quaerat, magnam cupiditate. Aut, laboriosam magnam, nobis dolore fugiat impedit necessitatibus nisi cupiditate, quas repellat itaque molestias sit libero voluptas eveniet omnis illo ullam dolorem minima.</p>
-            <p>Porro amet accusantium libero fugit totam, deserunt ipsa, dolorem, vero expedita illo similique saepe nisi deleniti. Cumque, laboriosam, porro! Facilis voluptatem sequi nulla quidem, provident eius quos pariatur maxime sapiente illo nostrum quibusdam aliquid fugiat! Earum quod fuga id officia.</p>
-            <p>Illo magnam at dolore ad enim fugiat ut maxime facilis autem, nulla cumque quis commodi eos nisi unde soluta, ipsa eius aspernatur sint atque! Nihil, eveniet illo ea, mollitia fuga accusamus dolor dolorem perspiciatis rerum hic, consectetur error rem aspernatur!</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus magni explicabo id molestiae, minima quas assumenda consectetur, nobis neque rem, incidunt quam tempore perferendis provident obcaecati sapiente, animi vel expedita omnis quae ipsa! Obcaecati eligendi sed odio labore vero reiciendis facere accusamus molestias eaque impedit, consequuntur quae fuga vitae fugit?</p>
           </div>
+          <!-- END main-content -->
         </div>
-        <!-- END main-content -->
       </div>
-    </div>
-  </section>
+    </section>
 
-
-<!-- Header -->
 <?php
+  } else {
+    // Handle the case where the article is not found
+    echo "<p>Article not found.</p>";
+  }
+} else {
+  // Handle the case where no article ID is provided
+  echo "<p>No article ID provided.</p>";
+}
+
+// Footer
 include('template/footer.php');
 ?>
